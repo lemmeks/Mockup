@@ -1,0 +1,31 @@
+    public static final String TBL_NAME_0 = "master_table"; //master db for testing
+    public static final String TBL_NAME_1 = "sbj_1_table";
+    public static final String TBL_NAME_2 = "sbj_2_table";
+    public static final String TBL_NAME_3 = "sbj_3_table";
+    public static final String TBL_NAME_4 = "sbj_4_table";
+
+    public static final String ID = "ID";
+    public static final String SES_DATE = "DATE";
+    public static final String SCO_INTO = "SCORE_INTONATION";
+    public static final String SCO_PRON = "SCORE_PRONUNCIATION";
+    public static final String SCO_TEMP = "SCORE_TEMPO";
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        for(int i=0; i<= 4; i++) {
+            db.execSQL("create table TBL_NAME_" + i + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SES_DATE + " TEXT, " + SCO_INTO + " REAL, " + SCO_PRON + " REAL, " + SCO_TEMP + " REAL)");
+        }
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        for(int i=0; i<= 4; i++)
+            db.execSQL("DROP TABLE IF EXISTS TBL_NAME_" + i);
+        onCreate(db);
+    }
